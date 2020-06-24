@@ -1,15 +1,14 @@
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
 }
-
-
-
 const express=require('express');
 const app=express();
 const expressLayouts=require('express-ejs-layouts');
 const indexRoute=require('./routes/indexRoute');
+const authorRoute=require('./routes/authorRoute');
 const mongoose=require('mongoose');
-const { Server } = require('http');
+const bodyParser=require('body-parser');
+
 
 // ----viewEngin--------
 app.set('view engine','ejs');
@@ -17,9 +16,11 @@ app.set('views',__dirname+'/views');
 app.set('layout','layouts/layout');
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({limit:'10mb',extended:false}));
 
 // ----------------middleware-----------
-app.use('/',indexRoute)
+app.use('/',indexRoute);
+app.use('/authors',authorRoute);
 
 // ----------------------database-----------------
 mongoose.connect(process.env.DB_CONNECTION,
