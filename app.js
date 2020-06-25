@@ -6,6 +6,7 @@ const app=express();
 const expressLayouts=require('express-ejs-layouts');
 const indexRoute=require('./routes/indexRoute');
 const authorRoute=require('./routes/authorRoute');
+const bookRoute=require('./routes/bookRoute');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({limit:'10mb',extended:false}));
 // ----------------middleware-----------
 app.use('/',indexRoute);
 app.use('/authors',authorRoute);
+app.use('/books',bookRoute);
 
 // ----------------------database-----------------
 mongoose.connect(process.env.DB_CONNECTION,
@@ -30,7 +32,7 @@ mongoose.connect(process.env.DB_CONNECTION,
     db.once('open',()=>console.log("DB connected"));
 
 // ---------------------Serverlisten------------    
-app.listen(process.env.PORT || 3000,()=>{
+app.listen(process.env.PORT || 5500,()=>{
     console.log("server up and running");
 });
 
