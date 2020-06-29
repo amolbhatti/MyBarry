@@ -31,7 +31,7 @@ const bookSchema = mongoose.Schema({
         required: true
     },
     author: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Author'
     }

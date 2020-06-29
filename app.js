@@ -9,6 +9,7 @@ const authorRoute=require('./routes/authorRoute');
 const bookRoute=require('./routes/bookRoute');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
+const methodOveride=require('method-override');
 
 
 // ----viewEngin--------
@@ -16,6 +17,7 @@ app.set('view engine','ejs');
 app.set('views',__dirname+'/views');
 app.set('layout','layouts/layout');
 app.use(expressLayouts);
+app.use(methodOveride('_method'))
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({limit:'10mb',extended:false}));
 
