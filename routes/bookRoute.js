@@ -118,11 +118,18 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     let book
     try {
-        book= await Book.findById(req.params.id)
+        book = await Book.findById(req.params.id)
         await book.remove()
         res.redirect('/books')
     } catch{
-     
+        if (book != null) {
+            res.render('books/show', {
+                book: book,
+                errorMessage: 'Could Not remove book'
+            })
+        } else {
+            res.redirect('/')
+        }
     }
 })
 
